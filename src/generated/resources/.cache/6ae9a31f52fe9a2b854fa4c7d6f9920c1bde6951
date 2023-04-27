@@ -1,0 +1,21 @@
+// 1.19.2	2023-04-27T17:55:23.7538995	Registrate Provider for sliceanddice [Recipes, Advancements, Loot tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+828b858310c99cdb987deb12e5ddeb4756688eeb data\minecraft\tags\blocks\mineable\axe.json
+9d21a16228df5099ab7e27176a40dbbaa792b3a9 assets\sliceanddice\models\block\wet_air.json
+bfa9469cba2258ed3805a182bbbf6ed1eab72703 data\sliceanddice\advancements\recipes\tools\slicer.json
+d1407b71743b468d52f9a3e86dafef3f125643e9 assets\sliceanddice\blockstates\fertilizer.json
+7049249fb67bf9327f512312c8c233ec2f0024eb assets\sliceanddice\models\item\slicer.json
+c0b3717067da1e82c921ece84c595b72a580a76a data\sliceanddice\loot_tables\blocks\sprinkler.json
+4dc15b4c804226ee848d857f6324e0aed0287af7 assets\sliceanddice\blockstates\wet_air.json
+64c6640dc94ae7919c2d9b9d7d0c8659f1bfc2d0 data\sliceanddice\advancements\recipes\tools\sprinkler.json
+15b47b7b8adfee25050b76baf83a8e32820d9764 assets\sliceanddice\models\block\fertilizer.json
+d1e8f4ee8a7eb784a7d618b666aaee7fbf9835fc data\minecraft\tags\blocks\mineable\pickaxe.json
+c1f8c730f139de211b7b8a307f5f209a7bb04564 assets\sliceanddice\lang\en_us.json
+0d9ab99df4f9cf9706b2ee9b3692eab4e880d3b8 assets\sliceanddice\models\item\sprinkler.json
+fedd154f2354e42740ecdbafee6bccf8311c97af data\sliceanddice\tags\fluids\fertilizer.json
+e7ac474a71367f0e7c599921a75b7f83cec45641 assets\sliceanddice\lang\en_ud.json
+932cebbf8416df700753e6dbc1f462cd4b541cfb data\sliceanddice\loot_tables\blocks\slicer.json
+1f09e5b178829c25dc4c53b628548d7b1ae6c227 assets\sliceanddice\blockstates\slicer.json
+785e83f39bb83e2b1e58548fff8dff5d7c65b189 data\sliceanddice\recipes\slicer.json
+b8e84c3e21b8c4dcf4d4470bc200f7b110a7a12e assets\sliceanddice\blockstates\sprinkler.json
+cf9e550d99164483abfc8449d88e71239d60ab2b data\sliceanddice\recipes\sprinkler.json
+2b2a4bde1a1c86393b28fa3ff9b81ef1ddeed22d data\sliceanddice\loot_tables\blocks\wet_air.json

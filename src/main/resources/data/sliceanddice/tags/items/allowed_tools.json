@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#c:tools/knives",
+      "required": false
+    },
+    "#c:tools/axes"
+  ]
+}

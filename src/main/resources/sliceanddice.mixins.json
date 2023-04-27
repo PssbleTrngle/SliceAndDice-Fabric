@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.possible_triangle.sliceanddice.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "minVersion": "0.8",
+  "refmap": "sliceanddice.refmap.json",
+  "mixins": [
+    "EntityMixin",
+    "LevelMixin",
+    "RecipeEventJSMixin",
+    "RecipeManagerAccessor",
+    "RecipeManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
