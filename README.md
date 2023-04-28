@@ -14,7 +14,7 @@
 <!-- modrinth_exclude.start -->
 # Create Slice & Dice
 
-[Looking for the Fabric version?](https://github.com/PssbleTrngle/SliceAndDice-Fabric)
+[Looking for the Forge version?](https://github.com/PssbleTrngle/SliceAndDice)
 
 [![Release](https://img.shields.io/github/v/release/PssbleTrngle/SliceAndDice?label=Version&sort=semver)][DOWNLOAD]
 [![Downloads](http://cf.way2muchnoise.eu/full_659674_downloads.svg)][CURSEFORGE]
