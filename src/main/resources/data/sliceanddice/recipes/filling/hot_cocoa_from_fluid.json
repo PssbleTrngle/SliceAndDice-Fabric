@@ -7,7 +7,7 @@
     {
       "fluid": "create:chocolate",
       "nbt": {},
-      "amount": 250
+      "amount": 27000
     }
   ],
   "results": [
@@ -17,8 +17,10 @@
   ],
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "farmersdelight"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelight"
+      ]
     }
   ]
 }

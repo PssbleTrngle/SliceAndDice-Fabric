@@ -13,8 +13,8 @@
       "tag": "forge:raw_pork"
     },
     {
-      "fluidTag": "forge:milk",
-      "amount": 250
+      "fluidTag": "c:milk",
+      "amount": 27000
     },
     {
       "item": "minecraft:bowl"
@@ -27,8 +27,10 @@
   ],
   "conditions": [
     {
-      "type": "forge:mod_loaded",
-      "modid": "farmersdelight"
+      "type": "fabric:all_mods_loaded",
+      "values": [
+        "farmersdelights"
+      ]
     }
   ]
 }
