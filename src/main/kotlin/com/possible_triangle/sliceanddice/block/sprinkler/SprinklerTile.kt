@@ -9,6 +9,7 @@ import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankB
 import com.simibubi.create.foundation.utility.VecHelper
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil
 import io.github.fabricators_of_create.porting_lib.util.FluidStack
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage
 import net.fabricmc.fabric.api.transfer.v1.storage.base.SidedStorageBlockEntity
@@ -26,8 +27,13 @@ class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) 
     private lateinit var tank: SmartFluidTankBehaviour
     private var processingTicks = -1
 
+    companion object {
+        private const val FLUID_MULTIPLIER = FluidConstants.BUCKET / 1000
+    }
+
     override fun addBehaviours(behaviours: MutableList<TileEntityBehaviour>) {
-        behaviours.add(SmartFluidTankBehaviour.single(this, Configs.SERVER.SPRINKLER_CAPACITY.get().toLong()).allowInsertion()
+        behaviours.add(SmartFluidTankBehaviour.single(this, Configs.SERVER.SPRINKLER_CAPACITY.get() * FLUID_MULTIPLIER)
+            .allowInsertion()
             .also { tank = it })
     }
 
@@ -40,11 +46,10 @@ class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) 
         if (processingTicks >= 0) {
             processingTicks--
         } else {
-            TransferUtil.getTransaction().use {
-                val ctx = it.openNested()
-                val used = Configs.SERVER.SPRINKLER_USAGE.get()
-                val fluid = FluidVariant.of(tank.primaryHandler.fluid.fluid)
-                val amountExtracted = tank.capability.extract(fluid, used.toLong(), ctx)
+            val fluid = FluidVariant.of(tank.primaryHandler.fluid.fluid)
+            if(!fluid.isBlank) TransferUtil.getTransaction().use { ctx ->
+                val used = Configs.SERVER.SPRINKLER_USAGE.get() * FLUID_MULTIPLIER
+                val amountExtracted = tank.capability.extract(fluid, used, ctx)
                 if (amountExtracted >= used) {
                     tank.capability.extract(fluid, amountExtracted, ctx)
                     processingTicks = 20 * 10

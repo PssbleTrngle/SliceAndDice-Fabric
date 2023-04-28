@@ -9,7 +9,7 @@ plugins {
 
 version = project.mod_version
 group = 'com.possible_triangle'
-archivesBaseName = project.mod_id
+archivesBaseName = "${project.mod_id}-fabric"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -192,7 +192,7 @@ publishing {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/${project.repository}")
-            version = version
+            version = project.mod_version
             credentials {
                 username = ENV.GITHUB_ACTOR
                 password = ENV.GITHUB_TOKEN
@@ -202,7 +202,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             groupId = group
-            artifactId = project.mod_id
+            artifactId = archivesBaseName
             version = project.mod_version
             from(components.java)
         }
@@ -213,17 +213,18 @@ if (ENV.CURSEFORGE_TOKEN) curseforge {
     apiKey = ENV.CURSEFORGE_TOKEN
     project {
         id = project.curseforge_project_id
+        version = "${project.mod_version}-fabric"
         addGameVersion project.mc_version
         addGameVersion 'Fabric'
         changelog = ENV.CHANGELOG
         changelogType = 'markdown'
         releaseType = project.release_type
         mainArtifact(jar) {
-            displayName = "Version ${project.mod_version}"
+            displayName = "Fabric ${project.mod_version}"
         }
         relations {
             requiredDependency 'create-fabric'
-            requiredDependency 'kotlin-language-fabric'
+            requiredDependency 'fabric-language-kotlin'
             optionalDependency 'farmers-delight-fabric'
         }
     }
@@ -232,19 +233,16 @@ if (ENV.CURSEFORGE_TOKEN) curseforge {
 if (ENV.MODRINTH_TOKEN) modrinth {
     token = ENV.MODRINTH_TOKEN
     projectId = project.modrinth_project_id
-    versionNumber = version
-    versionName = "Version ${project.mod_version}"
+    versionNumber = "${project.mod_version}-fabric"
+    versionName = "Fabric ${project.mod_version}"
     changelog = ENV.CHANGELOG
     gameVersions = [project.mc_version]
     loaders = ["fabric"]
     versionType = project.release_type
     uploadFile = jar
-    syncBodyFrom = project.file("README.md").text
     dependencies {
-    //    required.project "ordsPcFz"
-    //    required.project "LNytGWDc"
-    //    optional.project "R2OftAxM"
+        required.project "Xbc0uyRg"
+        required.project "Ha28R6CL"
+        optional.project "4EakbH8e"
     }
 }
-
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
