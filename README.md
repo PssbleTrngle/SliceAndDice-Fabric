@@ -33,7 +33,7 @@
 
 ### Slicer
 
-This mod enables a variety of features to create better compatibility between mostly [Farmer's Delight][FARMERS_DELIGHT_FORGE] and [Create][CREATE_FORGE].
+This mod enables a variety of features to create better compatibility between mostly [Farmer's Delight][FARMERS_DELIGHT_FABRIC] and [Create][CREATE_FABRIC].
 While it is designed to work with Farmer's Delight, it does work without it and also adds some compatibility features for other mods.
 
 ![](https://raw.githubusercontent.com/PssbleTrngle/SliceAndDice/1.19.x/screenshots/slicer.png)
@@ -51,26 +51,3 @@ An example datapack which adds shears to this tag can be found [here](https://gi
 All recipes from Farmer's delight requiring the Cooking Pot are added as heated mixing recipes.
 
 ![](https://raw.githubusercontent.com/PssbleTrngle/SliceAndDice/1.19.x/screenshots/cooking.png)
-
-### Sprinkler
-
-The Sprinkler is a block which, when provided with a fluid using a pipe, will distribute it in a small area below.  
-Different fluids can have different effects.
-
-- Lava applies a small amount of fire damage to entities below 
-- Water makes the area below wet, making the world think it's raining there.
-- Potions apply their affect for a short duration to entities below
-- Liquid Fertilizer, a new fluid, applies a bonemeal affect to blocks.
-
-The latter is meant to enable growing of _Banana Fonds_ from [Neapolitan][NEAPOLITAN] without being dependent on the weather, but it could possibly have other effects on other mods too.
-
-![](https://raw.githubusercontent.com/PssbleTrngle/SliceAndDice/1.19.x/screenshots/sprinkler.png)
-
-### Overweight Farming
-
-If present, some compatibility features for [Overweight Farming][OVERWEIGHT_FARMING] is added.  
-This includes waxing recipes using the deployer, 
-as well as showing the axe-stripping of overweight crops in JEI.
-
-![](https://raw.githubusercontent.com/PssbleTrngle/SliceAndDice/1.19.x/screenshots/strip.png)
-![](https://raw.githubusercontent.com/PssbleTrngle/SliceAndDice/1.19.x/screenshots/wax.png)

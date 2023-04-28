@@ -8,7 +8,8 @@
     "possible_triangle"
   ],
   "contact": {
-    "sources": "https://github.com/PssbleTrngle/SliceAndDice"
+    "sources": "https://github.com/PssbleTrngle/SliceAndDice-Fabric",
+    "issues": "https://github.com/PssbleTrngle/SliceAndDice/issues"
   },
   "license": "CC0-1.0",
   "environment": "*",
