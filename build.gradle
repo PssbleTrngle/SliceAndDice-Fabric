@@ -219,7 +219,7 @@ if (ENV.CURSEFORGE_TOKEN) curseforge {
         changelog = ENV.CHANGELOG
         changelogType = 'markdown'
         releaseType = project.release_type
-        mainArtifact(jar) {
+        mainArtifact(remapJar) {
             displayName = "Fabric ${project.mod_version}"
         }
         relations {
@@ -239,7 +239,7 @@ if (ENV.MODRINTH_TOKEN) modrinth {
     gameVersions = [project.mc_version]
     loaders = ["fabric"]
     versionType = project.release_type
-    uploadFile = jar
+    uploadFile = remapJar
     dependencies {
         required.project "Xbc0uyRg"
         required.project "Ha28R6CL"
