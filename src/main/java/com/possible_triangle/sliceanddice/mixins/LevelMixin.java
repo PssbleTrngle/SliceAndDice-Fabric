@@ -18,7 +18,7 @@ public abstract class LevelMixin {
     @Inject(at = @At("HEAD"), cancellable = true, method = "isRainingAt(Lnet/minecraft/core/BlockPos;)Z")
     public void isRainingAt(BlockPos pos, CallbackInfoReturnable<Boolean> callback) {
         for (BlockPos it : BlockPos.betweenClosed(pos.above(2), pos)) {
-            if (getBlockState(it).is(Content.INSTANCE.getWET_AIR().get())) {
+            if (Content.INSTANCE.isWet(getBlockState(it))) {
                 callback.setReturnValue(true);
                 break;
             }

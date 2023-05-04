@@ -32,6 +32,10 @@
     "fabric": "*",
     "minecraft": "1.19.2",
     "java": ">=17",
-    "fabric-language-kotlin": ">=1.9.1+kotlin.1.8.10"
+    "fabric-language-kotlin": ">=1.9.1+kotlin.1.8.10",
+    "create": "*"
+  },
+  "recommends": {
+    "farmers-delight": "*"
   }
 }

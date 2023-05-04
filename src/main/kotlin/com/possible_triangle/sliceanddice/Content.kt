@@ -36,6 +36,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.api.ModLoadingContext
 import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.fml.config.ModConfig
@@ -138,6 +139,10 @@ object Content {
         PonderScenes.register()
         val helper = ExistingFileHelper.withResourcesFromArg()
         REGISTRATE.setupDatagen(generator, helper)
+    }
+
+    fun isWet(state: BlockState): Boolean {
+        return WET_AIR.`is`(state)
     }
 
 }

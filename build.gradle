@@ -170,6 +170,14 @@ compileKotlin {
     kotlinOptions.jvmTarget = "17"
 }
 
+processResources {
+    inputs.property "version", project.mod_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.mod_version
+    }
+}
+
 jar {
     manifest {
         attributes([
