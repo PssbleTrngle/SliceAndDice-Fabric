@@ -210,7 +210,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             groupId = group
-            artifactId = project.mod_id
+            artifactId = project.repository
             version = project.mod_version
             from(components.java)
         }

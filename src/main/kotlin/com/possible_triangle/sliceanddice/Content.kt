@@ -122,7 +122,8 @@ object Content {
     val FERTILIZER =
         REGISTRATE.fluid("fertilizer", modLoc("fluid/fertilizer_still"), modLoc("fluid/fertilizer_flowing"))
             .tag(FERTILIZERS).source { SimpleFlowableFluid.Source(it) }
-            .bucket().model(AssetLookup.existingItemModel()).build().register()
+            .bucket().defaultModel().build()
+            .register()
 
     fun register() {
         REGISTRATE.register()
