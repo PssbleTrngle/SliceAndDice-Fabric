@@ -72,9 +72,12 @@ object Content {
         .instance { BiFunction { manager, tile -> SlicerInstance(manager, tile) } }
         .renderer { NonNullFunction { SlicerRenderer(it) } }.validBlock(SLICER_BLOCK).register()
 
-    private fun <T : Recipe<*>> createRecipeSerializer(id: ResourceLocation, supplier: Supplier<RecipeSerializer<T>>): Supplier<RecipeSerializer<T>> {
-        Registry.register(Registry.RECIPE_SERIALIZER, id, supplier.get())
-        return supplier
+    private fun <T : Recipe<*>> createRecipeSerializer(
+        id: ResourceLocation,
+        supplier: Supplier<RecipeSerializer<T>>,
+    ): Supplier<RecipeSerializer<T>> {
+        val registered = Registry.register(Registry.RECIPE_SERIALIZER, id, supplier.get())
+        return Supplier { registered }
     }
 
     private fun <T : Recipe<*>> createRecipeType(id: ResourceLocation): Supplier<RecipeType<T>> {
