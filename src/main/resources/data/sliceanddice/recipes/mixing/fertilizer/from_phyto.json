@@ -6,20 +6,20 @@
     },
     {
       "fluid": "minecraft:water",
-      "amount": 1000
+      "amount": 81000
     }
   ],
   "results": [
     {
       "fluid": "sliceanddice:fertilizer",
-      "amount": 1000
+      "amount": 81000
     }
   ],
   "conditions": [
     {
       "type": "fabric:all_mods_loaded",
       "values": [
-        "thermal_foundation"
+        "thermal"
       ]
     }
   ]

@@ -4,10 +4,10 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "forge:crops/corn"
+      "tag": "c:crops/corn"
     },
     {
-      "tag": "forge:crops/corn"
+      "tag": "c:crops/corn"
     },
     {
       "fluidTag": "c:milk",
