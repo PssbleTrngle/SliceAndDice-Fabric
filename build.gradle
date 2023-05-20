@@ -210,7 +210,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             groupId = group
-            artifactId = project.repository
+            artifactId = "${project.mod_id}-fabric"
             version = project.mod_version
             from(components.java)
         }
