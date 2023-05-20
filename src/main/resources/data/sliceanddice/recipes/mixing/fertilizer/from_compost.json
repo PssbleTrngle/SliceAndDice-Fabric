@@ -6,13 +6,13 @@
     },
     {
       "fluid": "minecraft:water",
-      "amount": 250
+      "amount": 20250
     }
   ],
   "results": [
     {
       "fluid": "sliceanddice:fertilizer",
-      "amount": 250
+      "amount": 20250
     }
   ],
   "conditions": [
