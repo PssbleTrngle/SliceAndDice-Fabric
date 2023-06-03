@@ -269,7 +269,7 @@ env["CURSEFORGE_TOKEN"]?.let { token ->
             releaseType = release_type
             addModLoader("Fabric")
             addGameVersion(mc_version)
-            displayName = "Version $mod_version"
+            displayName = "Fabric $mod_version"
 
             addRelation("create-fabric", "requiredDependency")
             addRelation("fabric-language-kotlin", "requiredDependency")
@@ -283,7 +283,7 @@ env["MODRINTH_TOKEN"]?.let { modrinthToken ->
         token.set(modrinthToken)
         projectId.set(modrinth_project_id)
         versionNumber.set(mod_version)
-        versionName.set("Version $mod_version")
+        versionName.set("Fabric $mod_version")
         changelog.set(env["CHANGELOG"])
         gameVersions.set(listOf(mc_version))
         loaders.set(listOf("fabric"))
