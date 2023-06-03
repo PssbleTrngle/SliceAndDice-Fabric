@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "id": "sliceanddice",
-  "version": "${version}",
-  "name": "Create Slice & Dice",
+  "id": "${mod_id}",
+  "version": "${mod_version}",
+  "name": "${mod_name}",
   "description": "Making automation for Farmers Delight more sensible",
   "authors": [
-    "possible_triangle"
+    "${mod_author}"
   ],
   "contact": {
-    "sources": "https://github.com/PssbleTrngle/SliceAndDice-Fabric",
+    "sources": "https://github.com/${repository}",
     "issues": "https://github.com/PssbleTrngle/SliceAndDice/issues"
   },
   "license": "CC0-1.0",
@@ -25,7 +25,7 @@
     ]
   },
   "mixins": [
-    "sliceanddice.mixins.json"
+    "${mod_id}.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14",

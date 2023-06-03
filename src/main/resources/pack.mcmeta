@@ -1,6 +1,6 @@
 {
     "pack": {
-        "description": "Create: Slice & Dice resources",
+        "description": "${mod_name} resources",
         "pack_format": 6
     }
 }
