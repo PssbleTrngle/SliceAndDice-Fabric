@@ -77,6 +77,19 @@ loom {
 
 repositories {
     maven {
+        url = uri("https://maven.quiltmc.org/repository/release")
+        content {
+            includeGroup("org.quiltmc")
+        }
+    }
+    maven {
+        url = uri("https://maven.parchmentmc.org")
+        content {
+            includeGroup("org.parchmentmc.data")
+        }
+    }
+
+    maven {
         url = uri("https://thedarkcolour.github.io/KotlinForForge/")
         content {
             includeGroup("thedarkcolour")
@@ -263,7 +276,7 @@ env["CURSEFORGE_TOKEN"]?.let { token ->
 
         apiToken = token
 
-        upload(curseforge_project_id, tasks.jar.get().archiveFile).apply {
+        upload(curseforge_project_id, tasks.remapJar.get().archiveFile).apply {
             changelogType = "html"
             changelog = env["CHANGELOG"]
             releaseType = release_type
@@ -288,7 +301,7 @@ env["MODRINTH_TOKEN"]?.let { modrinthToken ->
         gameVersions.set(listOf(mc_version))
         loaders.set(listOf("fabric"))
         versionType.set(release_type)
-        uploadFile.set(tasks.jar.get())
+        uploadFile.set(tasks.remapJar.get())
         dependencies {
             required.project("Xbc0uyRg")
             required.project("Ha28R6CL")
