@@ -53,6 +53,11 @@ java {
 
 loom {
     accessWidenerPath.set(file("src/main/resources/${mod_id}.accesswidener"))
+
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
+
     sourceSets {
         main {
             resources {

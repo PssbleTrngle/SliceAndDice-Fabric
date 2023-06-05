@@ -162,6 +162,7 @@ class SlicerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) :
         return base * modeOffset + 0.4F
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun recipeFor(stack: ItemStack): CuttingProcessingRecipe? {
         val recipes = RecipeFinder.get(inWorldCacheKey, level) {
             if (it !is CuttingProcessingRecipe) false
