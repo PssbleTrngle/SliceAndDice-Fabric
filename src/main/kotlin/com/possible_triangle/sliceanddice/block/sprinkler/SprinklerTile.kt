@@ -1,11 +1,11 @@
 package com.possible_triangle.sliceanddice.block.sprinkler
 
 import com.possible_triangle.sliceanddice.config.Configs
-import com.simibubi.create.content.contraptions.fluids.FluidFX
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation
+import com.simibubi.create.content.fluids.FluidFX
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour
 import com.simibubi.create.foundation.utility.VecHelper
 import io.github.fabricators_of_create.porting_lib.transfer.TransferUtil
 import io.github.fabricators_of_create.porting_lib.util.FluidStack
@@ -21,7 +21,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) : SmartTileEntity(type, pos, state),
+class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) : SmartBlockEntity(type, pos, state),
     IHaveGoggleInformation, SidedStorageBlockEntity {
 
     private lateinit var tank: SmartFluidTankBehaviour
@@ -31,7 +31,7 @@ class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) 
         private const val FLUID_MULTIPLIER = FluidConstants.BUCKET / 1000
     }
 
-    override fun addBehaviours(behaviours: MutableList<TileEntityBehaviour>) {
+    override fun addBehaviours(behaviours: MutableList<BlockEntityBehaviour>) {
         behaviours.add(SmartFluidTankBehaviour.single(this, Configs.SERVER.SPRINKLER_CAPACITY.get() * FLUID_MULTIPLIER)
             .allowInsertion()
             .also { tank = it })

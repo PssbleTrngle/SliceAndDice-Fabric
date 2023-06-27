@@ -20,6 +20,9 @@
     "client": [
       "com.possible_triangle.sliceanddice.SliceAndDice"
     ],
+    "rei_client": [
+      "com.possible_triangle.sliceanddice.compat.REICompat"
+    ],
     "fabric-datagen": [
       "com.possible_triangle.sliceanddice.SliceAndDice"
     ]

@@ -13,15 +13,15 @@ import com.possible_triangle.sliceanddice.block.sprinkler.behaviours.PotionBehav
 import com.possible_triangle.sliceanddice.config.Configs
 import com.possible_triangle.sliceanddice.recipe.CuttingProcessingRecipe
 import com.simibubi.create.AllBlocks
+import com.simibubi.create.AllCreativeModeTabs
 import com.simibubi.create.AllFluids
 import com.simibubi.create.AllTags
-import com.simibubi.create.content.AllSections
-import com.simibubi.create.content.CreateItemGroup
-import com.simibubi.create.content.contraptions.components.AssemblyOperatorBlockItem
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeSerializer
-import com.simibubi.create.content.logistics.block.mechanicalArm.ArmInteractionPointType
-import com.simibubi.create.foundation.block.BlockStressDefaults
+import com.simibubi.create.content.kinetics.BlockStressDefaults
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointType
+import com.simibubi.create.content.processing.AssemblyOperatorBlockItem
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeSerializer
 import com.simibubi.create.foundation.data.*
+import com.tterrag.registrate.builders.BlockEntityBuilder.BlockEntityFactory
 import com.tterrag.registrate.fabric.SimpleFlowableFluid
 import com.tterrag.registrate.providers.RegistrateRecipeProvider.has
 import com.tterrag.registrate.util.nullness.NonNullFunction
@@ -51,8 +51,7 @@ object Content {
     }
 
     private val REGISTRATE = CreateRegistrate.create(MOD_ID).apply {
-        creativeModeTab { CreateItemGroup.TAB_TOOLS }
-        startSection(AllSections.LOGISTICS)
+        creativeModeTab { AllCreativeModeTabs.BASE_CREATIVE_TAB }
     }
 
     val ALLOWED_TOOLS = TagKey.create(Registry.ITEM_REGISTRY, modLoc("allowed_tools"))
@@ -68,7 +67,7 @@ object Content {
                 .unlockedBy("has_mixer", has(AllBlocks.MECHANICAL_MIXER.get())).save(p)
         }.register()
 
-    val SLICER_TILE = REGISTRATE.tileEntity("slicer", ::SlicerTile)
+    val SLICER_TILE = REGISTRATE.blockEntity("slicer", BlockEntityFactory(::SlicerTile))
         .instance { BiFunction { manager, tile -> SlicerInstance(manager, tile) } }
         .renderer { NonNullFunction { SlicerRenderer(it) } }.validBlock(SLICER_BLOCK).register()
 
@@ -111,7 +110,7 @@ object Content {
                 .define('P', AllBlocks.FLUID_PIPE.get()).unlockedBy("has_pipe", has(AllBlocks.FLUID_PIPE.get())).save(p)
         }.register()
 
-    val SPRINKLER_TILE = REGISTRATE.tileEntity("sprinkler", ::SprinklerTile).validBlock(SPRINKLER_BLOCK).register()
+    val SPRINKLER_TILE = REGISTRATE.blockEntity("sprinkler", BlockEntityFactory(::SprinklerTile)).validBlock(SPRINKLER_BLOCK).register()
 
     private val WET_FLUIDS = TagKey.create(Registry.FLUID_REGISTRY, modLoc("moisturizing"))
     private val HOT_FLUIDS = TagKey.create(Registry.FLUID_REGISTRY, modLoc("burning"))

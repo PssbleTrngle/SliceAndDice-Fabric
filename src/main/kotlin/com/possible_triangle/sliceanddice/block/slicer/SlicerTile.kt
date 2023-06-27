@@ -4,17 +4,17 @@ import com.possible_triangle.sliceanddice.Content
 import com.possible_triangle.sliceanddice.SliceAndDice
 import com.possible_triangle.sliceanddice.config.Configs
 import com.possible_triangle.sliceanddice.recipe.CuttingProcessingRecipe
-import com.simibubi.create.content.contraptions.components.press.PressingBehaviour
-import com.simibubi.create.content.contraptions.components.press.PressingBehaviour.Mode
-import com.simibubi.create.content.contraptions.components.press.PressingBehaviour.PressingBehaviourSpecifics
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity
-import com.simibubi.create.content.contraptions.processing.InWorldProcessing
-import com.simibubi.create.content.contraptions.relays.belt.transport.TransportedItemStack
+import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack
+import com.simibubi.create.content.kinetics.press.PressingBehaviour
+import com.simibubi.create.content.kinetics.press.PressingBehaviour.Mode
+import com.simibubi.create.content.kinetics.press.PressingBehaviour.PressingBehaviourSpecifics
+import com.simibubi.create.content.processing.basin.BasinOperatingBlockEntity
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.item.TooltipHelper
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour
+import com.simibubi.create.foundation.recipe.RecipeApplier
+import com.simibubi.create.foundation.recipe.RecipeFinder
 import com.simibubi.create.foundation.utility.Lang
 import com.simibubi.create.foundation.utility.VecHelper
-import com.simibubi.create.foundation.utility.recipe.RecipeFinder
 import io.github.fabricators_of_create.porting_lib.transfer.item.ItemHandlerHelper
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.fabricmc.fabric.api.transfer.v1.storage.Storage
@@ -38,7 +38,7 @@ import net.minecraft.world.phys.Vec3
 
 
 class SlicerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) :
-    BasinOperatingTileEntity(type, pos, state), PressingBehaviourSpecifics, SidedStorageBlockEntity {
+    BasinOperatingBlockEntity(type, pos, state), PressingBehaviourSpecifics, SidedStorageBlockEntity {
 
     companion object {
         private val inWorldCacheKey = Any()
@@ -77,7 +77,7 @@ class SlicerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) :
             val hint = Lang.builder(SliceAndDice.MOD_ID)
                 .translate("gui.contraptions.wrong_direction", I18n.get(blockState.block.descriptionId))
                 .component()
-            val cutString = TooltipHelper.cutTextComponent(hint, ChatFormatting.GRAY, ChatFormatting.WHITE)
+            val cutString = TooltipHelper.cutTextComponent(hint, TooltipHelper.Palette.STANDARD_CREATE)
             for (i in cutString.indices) {
                 Lang.builder().add(cutString[i].copy()).forGoggles(tooltip)
             }
@@ -86,7 +86,7 @@ class SlicerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) :
         return false
     }
 
-    override fun addBehaviours(behaviours: MutableList<TileEntityBehaviour>) {
+    override fun addBehaviours(behaviours: MutableList<BlockEntityBehaviour>) {
         super.addBehaviours(behaviours)
         behaviour = PressingBehaviour(this)
         behaviours.add(behaviour)
@@ -199,7 +199,7 @@ class SlicerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) :
         behaviour.particleItems.add(input.stack)
 
         val toProcess = if (canProcessInBulk()) input.stack else ItemHandlerHelper.copyStackWithSize(input.stack, 1)
-        val outputs = InWorldProcessing.applyRecipeOn(toProcess, recipe)
+        val outputs = RecipeApplier.applyRecipeOn(toProcess, recipe)
         outputList?.addAll(outputs)
         return true
     }

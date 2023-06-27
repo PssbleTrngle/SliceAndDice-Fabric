@@ -2,10 +2,10 @@ package com.possible_triangle.sliceanddice.recipe
 
 import com.possible_triangle.sliceanddice.Content
 import com.possible_triangle.sliceanddice.SliceAndDice
-import com.simibubi.create.content.contraptions.processing.BasinRecipe
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder.ProcessingRecipeParams
+import com.simibubi.create.content.processing.basin.BasinRecipe
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams
 import com.simibubi.create.foundation.item.SmartInventory
-import com.simibubi.create.foundation.utility.recipe.IRecipeTypeInfo
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level
 data class CuttingProcessingRecipe(val params: ProcessingRecipeParams, val tool: Ingredient? = null) :
     BasinRecipe(CuttingProcessingRecipe, params) {
 
+    @Suppress("UNCHECKED_CAST")
     companion object : IRecipeTypeInfo {
         override fun getId() = ResourceLocation(SliceAndDice.MOD_ID, "cutting")
 

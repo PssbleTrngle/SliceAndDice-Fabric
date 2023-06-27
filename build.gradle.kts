@@ -15,7 +15,8 @@ val mod_author: String by extra
 val release_type: String by extra
 val modrinth_project_id: String by extra
 val curseforge_project_id: String by extra
-val jei_version: String by extra
+val architectury_version: String by extra
+val rei_version: String by extra
 val farmers_delight_version: String by extra
 val kubejs_version: String by extra
 
@@ -48,12 +49,9 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
     withSourcesJar()
-    withJavadocJar()
 }
 
 loom {
-    accessWidenerPath.set(file("src/main/resources/${mod_id}.accesswidener"))
-
     mixin {
         defaultRefmapName.set("${mod_id}.refmap.json")
     }
@@ -116,9 +114,10 @@ repositories {
     }
 
     maven {
-        url = uri("https://maven.blamejared.com/")
+        url = uri("https://maven.shedaniel.me/")
         content {
-            includeGroup("mezz.jei")
+            includeGroup("me.shedaniel")
+            includeGroup("me.shedaniel.cloth")
         }
     }
 
@@ -172,6 +171,7 @@ repositories {
         content {
             includeGroup("com.github.LlamaLad7")
             includeGroup("com.github.Chocohead")
+            includeGroup("com.github.llamalad7.mixinextras")
         }
     }
 
@@ -200,9 +200,13 @@ dependencies {
 
     modImplementation("net.fabricmc:fabric-language-kotlin:1.9.4+kotlin.1.8.21")
 
-    modCompileOnly("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
-    modCompileOnly("mezz.jei:jei-${mc_version}-fabric-api:${jei_version}")
-    modRuntimeOnly("mezz.jei:jei-${mc_version}-fabric:${jei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-fabric:${rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${rei_version}")
+
+    if(!isCI) {
+        modRuntimeOnly("dev.architectury:architectury-fabric:${architectury_version}")
+        modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${rei_version}")
+    }
 
     modApi("com.simibubi.create:create-fabric-${mc_version}:${create_version}")
 

@@ -1,16 +1,20 @@
 package com.possible_triangle.sliceanddice.compat
 
+import com.nhoryzon.mc.farmersdelight.integration.rei.FarmersDelightModREI
 import com.nhoryzon.mc.farmersdelight.recipe.CookingPotRecipe
 import com.nhoryzon.mc.farmersdelight.recipe.CuttingBoardRecipe
+import com.possible_triangle.sliceanddice.Content
 import com.possible_triangle.sliceanddice.SliceAndDice
 import com.possible_triangle.sliceanddice.config.Configs
 import com.possible_triangle.sliceanddice.recipe.CuttingProcessingRecipe
-import com.simibubi.create.content.contraptions.components.mixer.MixingRecipe
-import com.simibubi.create.content.contraptions.processing.EmptyingRecipe
-import com.simibubi.create.content.contraptions.processing.HeatCondition
-import com.simibubi.create.content.contraptions.processing.ProcessingRecipeBuilder
+import com.simibubi.create.content.fluids.transfer.EmptyingRecipe
+import com.simibubi.create.content.kinetics.mixer.MixingRecipe
+import com.simibubi.create.content.processing.recipe.HeatCondition
+import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder
 import com.simibubi.create.foundation.fluid.FluidIngredient
 import io.github.fabricators_of_create.porting_lib.util.FluidStack
+import me.shedaniel.rei.api.client.registry.category.CategoryRegistry
+import me.shedaniel.rei.api.common.util.EntryStacks
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
@@ -36,9 +40,9 @@ class FarmersDelightCompat private constructor() : IRecipeInjector {
         }
     }
 
-    //fun addCatalysts(registration: IRecipeCatalystRegistration) {
-    //    registration.addRecipeCatalyst(ItemStack(Content.SLICER_BLOCK.get()), )
-    //}
+    fun addCatalysts(registration: CategoryRegistry) {
+        registration.addWorkstations(FarmersDelightModREI.CUTTING, EntryStacks.of(Content.SLICER_BLOCK.get()))
+    }
 
     override fun injectRecipes(existing: Map<ResourceLocation, Recipe<*>>, add: BiConsumer<ResourceLocation, Recipe<*>>) {
         basinCookingRecipes(existing, add)
