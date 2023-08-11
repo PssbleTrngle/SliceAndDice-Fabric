@@ -13,12 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Level.class)
 public abstract class LevelMixin {
 
-    @Shadow public abstract BlockState getBlockState(BlockPos pos);
-
     @Inject(at = @At("HEAD"), cancellable = true, method = "isRainingAt(Lnet/minecraft/core/BlockPos;)Z")
     public void isRainingAt(BlockPos pos, CallbackInfoReturnable<Boolean> callback) {
+        var self = (Level) (Object) this;
         for (BlockPos it : BlockPos.betweenClosed(pos.above(2), pos)) {
-            if (Content.INSTANCE.isWet(getBlockState(it))) {
+            if (Content.INSTANCE.isWet(self.getBlockState(it))) {
                 callback.setReturnValue(true);
                 break;
             }

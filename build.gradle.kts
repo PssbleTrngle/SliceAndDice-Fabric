@@ -1,5 +1,3 @@
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
-
 val mod_id: String by extra
 val mod_version: String by extra
 val qm_version: String by extra
@@ -14,7 +12,7 @@ val farmers_delight_version: String by extra
 val kubejs_version: String by extra
 
 plugins {
-    id("net.somethingcatchy.gradle") version ("0.0.1")
+    id("net.somethingcatchy.gradle") version ("0.0.7")
 }
 
 withKotlin()
@@ -36,13 +34,7 @@ configure<BasePluginExtension> {
     archivesName.set("$mod_id-fabric-${mod_version}")
 }
 
-configure<LoomGradleExtensionAPI> {
-    runs {
-        named("data") {
-            vmArg("-Dporting_lib.datagen.existing_resources=${file("src/main/resources")}")
-        }
-    }
-}
+apply(from = "https://raw.githubusercontent.com/PssbleTrngle/GradleHelper/main/repositories/create-fabric.build.kts")
 
 repositories {
     curseMaven()
@@ -88,53 +80,6 @@ repositories {
         url = uri("https://maven.theillusivec4.top/")
         content {
             includeGroup("top.theillusivec4.curios")
-        }
-    }
-
-    maven {
-        url = uri("https://mvn.devos.one/snapshots/")
-        content {
-            includeGroup("com.simibubi.create")
-            includeGroup("io.github.fabricators_of_create.Porting-Lib")
-            includeGroup("io.github.tropheusj")
-            includeGroup("com.tterrag.registrate_fabric")
-        }
-    }
-
-    maven {
-        url = uri("https://maven.tterrag.com/")
-        content {
-            includeGroup("com.jozufozu.flywheel")
-        }
-    }
-
-    maven {
-        url = uri("https://maven.jamieswhiteshirt.com/libs-release")
-        content {
-            includeGroup("com.jamieswhiteshirt")
-        }
-    }
-
-    maven {
-        url = uri("https://jitpack.io")
-        content {
-            includeGroup("com.github.LlamaLad7")
-            includeGroup("com.github.Chocohead")
-            includeGroup("com.github.llamalad7.mixinextras")
-        }
-    }
-
-    maven {
-        url = uri("https://maven.blamejared.com")
-        content {
-            includeGroup("com.faux.ingredientextension")
-        }
-    }
-
-    maven {
-        url = uri("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/")
-        content {
-            includeGroup("net.minecraftforge")
         }
     }
 }

@@ -24,6 +24,7 @@ import com.simibubi.create.foundation.data.*
 import com.tterrag.registrate.builders.BlockEntityBuilder.BlockEntityFactory
 import com.tterrag.registrate.fabric.SimpleFlowableFluid
 import com.tterrag.registrate.providers.RegistrateRecipeProvider.has
+import com.tterrag.registrate.util.entry.ItemEntry
 import com.tterrag.registrate.util.nullness.NonNullFunction
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.client.renderer.RenderType
@@ -31,6 +32,7 @@ import net.minecraft.core.Registry
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
+import net.minecraft.world.item.BucketItem
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
@@ -118,10 +120,15 @@ object Content {
 
     val FERTILIZER_BLACKLIST = TagKey.create(Registry.BLOCK_REGISTRY, modLoc("fertilizer_blacklist"))
 
+    val FERTILIZER_BUCKET: ItemEntry<BucketItem>
     val FERTILIZER =
         REGISTRATE.fluid("fertilizer", modLoc("fluid/fertilizer_still"), modLoc("fluid/fertilizer_flowing"))
-            .tag(FERTILIZERS).source { SimpleFlowableFluid.Source(it) }
-            .bucket().defaultModel().build()
+            .tag(FERTILIZERS)
+            .source { SimpleFlowableFluid.Source(it) }
+            .bucket()
+            .defaultModel()
+            .apply { FERTILIZER_BUCKET = register() }
+            .parent
             .register()
 
     fun register() {

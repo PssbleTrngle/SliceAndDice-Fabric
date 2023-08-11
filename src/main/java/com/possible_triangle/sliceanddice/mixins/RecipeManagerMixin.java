@@ -19,15 +19,6 @@ import java.util.Map;
 @Mixin(RecipeManager.class)
 public abstract class RecipeManagerMixin {
 
-    @Accessor
-    public abstract void setByName(Map<ResourceLocation, Recipe<?>> recipes);
-
-    @Accessor
-    public abstract Map<ResourceLocation, Recipe<?>> getByName();
-
-    @Accessor
-    public abstract void setRecipes(Map<RecipeType<?>, Map<ResourceLocation, Recipe<?>>> recipes);
-
     @Inject(at = @At("RETURN"), method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V")
     public void injectRecipes(Map<ResourceLocation, JsonElement> json, ResourceManager resourceManager, ProfilerFiller profiler, CallbackInfo ci) {
         RecipeInjection.INSTANCE.injectRecipes((RecipeManagerAccessor) this);
