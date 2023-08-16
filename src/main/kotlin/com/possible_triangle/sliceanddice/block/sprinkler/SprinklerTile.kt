@@ -21,6 +21,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
+@Suppress("UnstableApiUsage")
 class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) : SmartBlockEntity(type, pos, state),
     IHaveGoggleInformation, SidedStorageBlockEntity {
 
@@ -47,14 +48,16 @@ class SprinklerTile(type: BlockEntityType<*>, pos: BlockPos, state: BlockState) 
             processingTicks--
         } else {
             val fluid = FluidVariant.of(tank.primaryHandler.fluid.fluid)
-            if(!fluid.isBlank) TransferUtil.getTransaction().use { ctx ->
+            if (!fluid.isBlank) TransferUtil.getTransaction().use { ctx ->
                 val used = Configs.SERVER.SPRINKLER_USAGE.get() * FLUID_MULTIPLIER
-                val amountExtracted = tank.capability.extract(fluid, used, ctx)
+                val amountExtracted = tank.capability.simulateExtract(fluid, used, ctx)
                 if (amountExtracted >= used) {
                     tank.capability.extract(fluid, amountExtracted, ctx)
                     processingTicks = 20 * 10
                     notifyUpdate()
                 }
+
+                ctx.commit()
             }
         }
 
