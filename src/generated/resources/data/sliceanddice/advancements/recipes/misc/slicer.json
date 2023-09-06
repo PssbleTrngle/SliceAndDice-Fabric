@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_pipe": {
+    "has_mixer": {
       "conditions": {
         "items": [
           {
             "items": [
-              "create:fluid_pipe"
+              "create:mechanical_mixer"
             ]
           }
         ]
@@ -15,20 +15,32 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "sliceanddice:sprinkler"
+        "recipe": "sliceanddice:slicer"
       },
       "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tool": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "sliceanddice:allowed_tools"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "requirements": [
     [
-      "has_pipe",
+      "has_tool",
+      "has_mixer",
       "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "sliceanddice:sprinkler"
+      "sliceanddice:slicer"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

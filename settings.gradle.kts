@@ -10,4 +10,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "SliceAndDice-Fabric"
+rootProject.name = "$mod_name Fabric"

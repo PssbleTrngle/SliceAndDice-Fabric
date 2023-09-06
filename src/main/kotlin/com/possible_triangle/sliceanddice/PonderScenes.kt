@@ -255,7 +255,8 @@ object PonderScenes {
                     xo = cowPos.x
                     yo = cowPos.y
                     zo = cowPos.z
-                    animationPosition = 0f
+                    walkAnimation.update(-walkAnimation.position(), 1f)
+                    walkAnimation.setSpeed(1f)
                     yRotO = 210f
                     yRot = 210f
                     yHeadRotO = 210f
@@ -289,7 +290,7 @@ object PonderScenes {
 
             repeat(4) {
                 scene.world.modifyEntity(cow) {
-                    it.animateHurt()
+                    it.animateHurt(1F)
                 }
                 scene.idleSeconds(1)
             }

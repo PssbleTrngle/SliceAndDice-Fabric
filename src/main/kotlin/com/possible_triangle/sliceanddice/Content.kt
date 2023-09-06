@@ -26,9 +26,14 @@ import com.tterrag.registrate.fabric.SimpleFlowableFluid
 import com.tterrag.registrate.providers.RegistrateRecipeProvider.has
 import com.tterrag.registrate.util.entry.ItemEntry
 import com.tterrag.registrate.util.nullness.NonNullFunction
+import fuzs.forgeconfigapiport.api.config.v2.ForgeConfigRegistry
+import io.github.fabricators_of_create.porting_lib.data.ExistingFileHelper
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.Registry
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
+import net.minecraft.data.recipes.RecipeCategory
 import net.minecraft.data.recipes.ShapedRecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
@@ -39,8 +44,6 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraftforge.api.ModLoadingContext
-import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.fml.config.ModConfig
 import java.util.function.BiFunction
 import java.util.function.Supplier
@@ -52,18 +55,22 @@ object Content {
         return ResourceLocation(MOD_ID, path)
     }
 
-    private val REGISTRATE = CreateRegistrate.create(MOD_ID).apply {
-        creativeModeTab { AllCreativeModeTabs.BASE_CREATIVE_TAB }
-    }
+    private val REGISTRATE = CreateRegistrate.create(MOD_ID)
 
-    val ALLOWED_TOOLS = TagKey.create(Registry.ITEM_REGISTRY, modLoc("allowed_tools"))
+    val ALLOWED_TOOLS = TagKey.create(Registries.ITEM, modLoc("allowed_tools"))
 
-    val SLICER_BLOCK = REGISTRATE.block<SlicerBlock>("slicer", ::SlicerBlock).initialProperties(SharedProperties::stone)
-        .properties(BlockBehaviour.Properties::noOcclusion).transform(TagGen.axeOrPickaxe()).blockstate { c, p ->
-            p.simpleBlock(c.entry, AssetLookup.partialBaseModel(c, p))
-        }.addLayer { Supplier { RenderType.cutoutMipped() } }.transform(BlockStressDefaults.setImpact(4.0))
-        .item(::AssemblyOperatorBlockItem).transform(ModelGen.customItemModel()).recipe { c, p ->
-            ShapedRecipeBuilder.shaped(c.entry).pattern("A").pattern("B").pattern("C")
+    val SLICER_BLOCK = REGISTRATE.block<SlicerBlock>("slicer", ::SlicerBlock)
+        .initialProperties(SharedProperties::stone)
+        .properties(BlockBehaviour.Properties::noOcclusion)
+        .transform(TagGen.axeOrPickaxe())
+        .blockstate { c, p ->            p.simpleBlock(c.entry, AssetLookup.partialBaseModel(c, p)) }
+        .addLayer { Supplier { RenderType.cutoutMipped() } }
+        .transform(BlockStressDefaults.setImpact(4.0))
+        .item(::AssemblyOperatorBlockItem)
+        .tab(AllCreativeModeTabs.MAIN_TAB.key)
+        .transform(ModelGen.customItemModel())
+        .recipe { c, p ->
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.entry).pattern("A").pattern("B").pattern("C")
                 .define('A', AllBlocks.COGWHEEL.get()).define('B', AllBlocks.ANDESITE_CASING.get())
                 .define('C', AllBlocks.TURNTABLE.get()).unlockedBy("has_tool", has(ALLOWED_TOOLS))
                 .unlockedBy("has_mixer", has(AllBlocks.MECHANICAL_MIXER.get())).save(p)
@@ -77,7 +84,7 @@ object Content {
         id: ResourceLocation,
         supplier: Supplier<RecipeSerializer<T>>,
     ): Supplier<RecipeSerializer<T>> {
-        val registered = Registry.register(Registry.RECIPE_SERIALIZER, id, supplier.get())
+        val registered = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id, supplier.get())
         return Supplier { registered }
     }
 
@@ -85,7 +92,7 @@ object Content {
         val type = object : RecipeType<T> {
             override fun toString() = id.toString()
         }
-        Registry.register(Registry.RECIPE_TYPE, id, type)
+        Registry.register(BuiltInRegistries.RECIPE_TYPE, id, type)
         return Supplier { type }
     }
 
@@ -103,22 +110,27 @@ object Content {
         }.register()
 
     val SPRINKLER_BLOCK = REGISTRATE.block<SprinklerBlock>("sprinkler", ::SprinklerBlock)
-        .initialProperties { SharedProperties.copperMetal() }.transform(TagGen.pickaxeOnly())
+        .initialProperties { SharedProperties.copperMetal() }
+        .transform(TagGen.pickaxeOnly())
         .addLayer { Supplier { RenderType.cutoutMipped() } }
-        .blockstate { c, p -> p.simpleBlock(c.entry, AssetLookup.standardModel(c, p)) }.item()
-        .transform(ModelGen.customItemModel("_")).recipe { c, p ->
-            ShapedRecipeBuilder.shaped(c.entry, 3).pattern("SPS").pattern("SBS")
+        .blockstate { c, p -> p.simpleBlock(c.entry, AssetLookup.standardModel(c, p)) }
+        .item()
+        .tab(AllCreativeModeTabs.MAIN_TAB.key)
+        .transform(ModelGen.customItemModel("_"))
+        .recipe { c, p ->
+            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, c.entry, 3).pattern("SPS").pattern("SBS")
                 .define('S', AllTags.forgeItemTag("plates/copper")).define('B', Blocks.IRON_BARS)
                 .define('P', AllBlocks.FLUID_PIPE.get()).unlockedBy("has_pipe", has(AllBlocks.FLUID_PIPE.get())).save(p)
         }.register()
 
-    val SPRINKLER_TILE = REGISTRATE.blockEntity("sprinkler", BlockEntityFactory(::SprinklerTile)).validBlock(SPRINKLER_BLOCK).register()
+    val SPRINKLER_TILE =
+        REGISTRATE.blockEntity("sprinkler", BlockEntityFactory(::SprinklerTile)).validBlock(SPRINKLER_BLOCK).register()
 
-    private val WET_FLUIDS = TagKey.create(Registry.FLUID_REGISTRY, modLoc("moisturizing"))
-    private val HOT_FLUIDS = TagKey.create(Registry.FLUID_REGISTRY, modLoc("burning"))
-    private val FERTILIZERS = TagKey.create(Registry.FLUID_REGISTRY, modLoc("fertilizer"))
+    private val WET_FLUIDS = TagKey.create(Registries.FLUID, modLoc("moisturizing"))
+    private val HOT_FLUIDS = TagKey.create(Registries.FLUID, modLoc("burning"))
+    private val FERTILIZERS = TagKey.create(Registries.FLUID, modLoc("fertilizer"))
 
-    val FERTILIZER_BLACKLIST = TagKey.create(Registry.BLOCK_REGISTRY, modLoc("fertilizer_blacklist"))
+    val FERTILIZER_BLACKLIST = TagKey.create(Registries.BLOCK, modLoc("fertilizer_blacklist"))
 
     val FERTILIZER_BUCKET: ItemEntry<BucketItem>
     val FERTILIZER =
@@ -127,6 +139,7 @@ object Content {
             .source { SimpleFlowableFluid.Source(it) }
             .bucket()
             .defaultModel()
+            .tab(AllCreativeModeTabs.MAIN_TAB.key)
             .apply { FERTILIZER_BUCKET = register() }
             .parent
             .register()
@@ -134,8 +147,8 @@ object Content {
     fun register() {
         REGISTRATE.register()
 
-        ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.COMMON, Configs.SERVER_SPEC)
-        ModLoadingContext.registerConfig(MOD_ID, ModConfig.Type.CLIENT, Configs.CLIENT_SPEC)
+        ForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.COMMON, Configs.SERVER_SPEC)
+        ForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.CLIENT, Configs.CLIENT_SPEC)
 
         SprinkleBehaviour.register(WET_FLUIDS, MoistBehaviour)
         SprinkleBehaviour.register(HOT_FLUIDS, BurningBehaviour)
@@ -148,11 +161,7 @@ object Content {
     fun registerData(generator: FabricDataGenerator) {
         PonderScenes.register()
         val helper = ExistingFileHelper.withResourcesFromArg()
-        REGISTRATE.setupDatagen(generator, helper)
-    }
-
-    fun isWet(state: BlockState): Boolean {
-        return WET_AIR.`is`(state)
+        REGISTRATE.setupDatagen(generator.createPack(), helper)
     }
 
 }

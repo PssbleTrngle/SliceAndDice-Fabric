@@ -87,9 +87,9 @@ repositories {
 mod {
     includedMods.set(
         listOf(
-            "com.electronwill.night-config:core:${night_config_version}",
-            "com.electronwill.night-config:toml:${night_config_version}",
-            "net.minecraftforge:forgeconfigapiport-fabric:${forge_config_port_version}",
+            //"com.electronwill.night-config:core:${night_config_version}",
+            //"com.electronwill.night-config:toml:${night_config_version}",
+            "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forge_config_port_version}",
         )
     )
 }
