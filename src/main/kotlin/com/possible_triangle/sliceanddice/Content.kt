@@ -43,7 +43,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockBehaviour
-import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.fml.config.ModConfig
 import java.util.function.BiFunction
 import java.util.function.Supplier
@@ -134,7 +133,7 @@ object Content {
 
     val FERTILIZER_BUCKET: ItemEntry<BucketItem>
     val FERTILIZER =
-        REGISTRATE.fluid("fertilizer", modLoc("fluid/fertilizer_still"), modLoc("fluid/fertilizer_flowing"))
+        REGISTRATE.fluid("fertilizer", modLoc("block/fluid/fertilizer_still"), modLoc("block/fluid/fertilizer_flowing"))
             .tag(FERTILIZERS)
             .source { SimpleFlowableFluid.Source(it) }
             .bucket()
