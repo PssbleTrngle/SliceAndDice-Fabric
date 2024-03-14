@@ -12,6 +12,8 @@ val farmers_delight_version: String by extra
 val kubejs_version: String by extra
 
 plugins {
+    // force newer loom version (version that comes with com.possible-triangle.gradle is too old)
+    id("fabric-loom") version "1.5.+" apply false
     id("com.possible-triangle.gradle") version ("0.1.0")
 }
 
@@ -82,6 +84,8 @@ repositories {
             includeGroup("top.theillusivec4.curios")
         }
     }
+
+    maven("https://mvn.devos.one/releases/")
 }
 
 mod {
