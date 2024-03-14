@@ -5,7 +5,7 @@ import com.simibubi.create.content.fluids.transfer.EmptyingRecipe
 import com.simibubi.create.content.kinetics.mixer.MixingRecipe
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder.ProcessingRecipeParams
 import com.simibubi.create.foundation.fluid.FluidIngredient
-import io.github.fabricators_of_create.porting_lib.util.FluidStack
+import io.github.fabricators_of_create.porting_lib.fluids.FluidStack
 import net.minecraft.core.NonNullList
 import net.minecraft.world.item.crafting.Ingredient
 
