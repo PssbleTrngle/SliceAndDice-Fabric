@@ -1,6 +1,6 @@
 package com.possible_triangle.sliceanddice.block.sprinkler
 
-import io.github.fabricators_of_create.porting_lib.util.FluidStack
+import io.github.fabricators_of_create.porting_lib.fluids.FluidStack
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
 import net.minecraft.server.level.ServerLevel
