@@ -1,5 +1,6 @@
 package com.possible_triangle.sliceanddice.block.sprinkler
 
+import com.possible_triangle.sliceanddice.config.Configs
 import io.github.fabricators_of_create.porting_lib.fluids.FluidStack
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Vec3i
@@ -50,9 +51,10 @@ fun interface SprinkleBehaviour {
     fun act(range: Range, world: ServerLevel, fluidStack: FluidStack, random: RandomSource)
 
     companion object {
+        val serverRange = Configs.SERVER.SPRINKLER_BLOCKRANGE.get()
         private val BEHAVIOURS = arrayListOf<RegisteredBehaviour>()
 
-        private val DEFAULT_RANGE = Vec3i(5, 7, 5)
+        private val DEFAULT_RANGE = Vec3i(serverRange, 7, serverRange)
 
         fun register(tag: TagKey<Fluid>, behaviour: SprinkleBehaviour, range: Vec3i = DEFAULT_RANGE) {
             register({ it.fluid.`is`(tag) }, behaviour, range)
